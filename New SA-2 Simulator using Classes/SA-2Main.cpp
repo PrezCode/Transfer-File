@@ -2,6 +2,7 @@
 #include <iostream>
 #include "TargetDynamics.h"
 #include "MissileDynamics.h"
+#include "CoordinateDeterminationSystem.h"
 #include <cmath>
 #include <cstdlib>
 #include <random>
@@ -15,7 +16,8 @@ int main(){
     random_device rd; // obtain a random number from hardware
     mt19937 gen(rd()); // seed the generator
     uniform_int_distribution<> distr(1, 360); // define the range
-    Missile missile1(distr(gen)), missile2(distr(gen)), missile3(distr(gen)); //Spawn 3 missiles at random locations 100m from origin (SNR-75)
+    Missile missile1(distr(gen)), missile2(distr(gen)); //Spawn 2 missiles at random locations 100m from origin (SNR-75)
+    Track ();
     //ofstream MissileZ ("MissileHeight.txt"), MissileVelocity ("MissileVelocity.txt"), TimeOfFlight ("TimeOfFlight.txt"), MissileMass ("Mass.txt"), DragForce ("Drag.txt");
 
     cout << "S-75 Missile Intercept Simulation\n";
@@ -31,7 +33,6 @@ int main(){
     while(time < 120){    //Track target until either a launch happens or target fails to enter launch envelope within 60s 
         target.move(timeStep);        
         if(target.crossRange() <= target.maxRange() && target.TTI() <= 45 && time > 0){ //Automatically determine when launch parameters have been achieved
-            missile1.setEpsilon();
             missile1.setLaunchAngle(target.getEpsilon(), target.getBeta()); //Set initial launch angle towards target w/ 5 degree loft
             missileLaunch = true;
             break;

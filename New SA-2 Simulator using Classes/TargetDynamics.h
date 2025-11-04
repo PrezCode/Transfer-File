@@ -26,7 +26,7 @@ class Target{
         range_slant = sqrt(pow(range_ground, 2) + pow(height, 2));  //calculate slant range to target
         beta = atan2(Y, X); epsilon = atan2(height, range_ground); //generate new beta and epsilon angles based on calculated values
         betaReciprocal = beta + M_PI; //Set the recipricol heading of the target
-        theta = M_PI/2 - abs(alpha - betaReciprocal);
+        theta = M_PI/2 - abs(alpha - betaReciprocal);   //Angle difference between target LOS and tangent point
     }
     double maxRange(){    //Determine max range based on quadratic regression formula using real documented effective ranges
         if(Vsum <= 640){    //Rmax for Three-Point Method

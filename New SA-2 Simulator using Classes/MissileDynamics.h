@@ -16,7 +16,6 @@ class Missile{
         X = 100*cos(beta);
         Y = 100*sin(beta);
     }
-    void setEpsilon(){epsilon = atan2(Z, sqrt(X*X + Y*Y));}
     void setTOF(double t){TOF += t;} //log time of launch for missile
     void drag(){  //calculate air density based on missile height
         Cd = 0.5;
@@ -66,11 +65,7 @@ class Missile{
     void move(double t){X += Vx*t; Y += Vy*t; Z += Vz*t;}
     void setMass(double m){mass = m;}       
     double getTOF(){return TOF;}  //Return calculated time of flight
-    double SlantRange(){return slantRange = sqrt(X*X + Y*Y + Z*Z);} //return slant range to missile
     
-    //Diagnostic Commands
-    double getTheta(){return theta*180/M_PI;}
-    double getheading(){return heading;}
     private:
     double X, Y, Z, Vx, Vy, Vz, mass, thrust, pressure, tempurature, area, Cd;
     double beta, epsilon, heading, theta, velocity, rho, TOF, Drag, slantRange;
